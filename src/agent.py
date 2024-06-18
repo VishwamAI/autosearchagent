@@ -106,7 +106,7 @@ def handle_query(query):
 
     for sub_query in sub_queries:
         # Perform a web search for the sub-query
-        search_results = search(sub_query, tld="com", num=1, stop=1, pause=2)
+        search_results = search(sub_query, num_results=1, sleep_interval=2)
         for url in search_results:
             print(f"Accessing URL: {url}")
             scraped_data = scrape_data(url)

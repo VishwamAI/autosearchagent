@@ -68,11 +68,12 @@ class TestAgent(unittest.TestCase):
     @patch('src.agent.scrape_data')
     def test_handle_query(self, mock_scrape_data):
         mock_scrape_data.return_value = (
-            "Paris is the capital of France. The Eiffel Tower is a famous landmark in "
-            "Paris."
+            "Paris is the capital of France. The Eiffel Tower is a famous "
+            "landmark in Paris."
         )
         query = (
-            "What is the capital of France? Also, tell me about the Eiffel Tower."
+            "What is the capital of France? Also, tell me about the Eiffel "
+            "Tower."
         )
         results = handle_query(query)
         self.assertIsInstance(results, list)
@@ -105,7 +106,8 @@ class TestAgent(unittest.TestCase):
             "The Eiffel Tower is a famous landmark in Paris."
         ]
         user_input = (
-            "What is the capital of France? Also, tell me about the Eiffel Tower.\n"
+            "What is the capital of France? Also, tell me about the Eiffel "
+            "Tower.\n"
             "exit\n"
         )
         expected_output = (

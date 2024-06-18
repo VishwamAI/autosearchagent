@@ -25,6 +25,12 @@ The Auto Search Agent is designed to handle complex queries by breaking them dow
 - **Code-Related Queries**: The agent will handle code-related queries with precision, providing accurate solutions and explanations.
 - **Real-Time Facts**: The agent will use Google for quick, unambiguous fact-based queries and look up real-time facts and current events.
 
+### 6. Interactive and Sophisticated Features
+- **Interactive CLI**: An interactive command-line interface (CLI) will allow users to input queries and receive responses in real-time.
+- **Advanced Query Parsing**: The agent will have advanced query parsing capabilities to understand and categorize different types of queries, such as factual, opinion-based, or action-oriented.
+- **Contextual Understanding**: The agent will maintain state across multiple queries, allowing for a conversational experience.
+- **Machine Learning Integration**: The agent will integrate machine learning models to improve natural language understanding and provide more accurate responses to complex queries.
+
 ## Workflow
 
 1. **Receive Query**: The agent receives a query from the user.

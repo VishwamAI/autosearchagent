@@ -43,11 +43,15 @@ def scrape_data(url):
     """
     Scrape data from the given URL using Beautiful Soup.
     """
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        return soup.get_text()
-    else:
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            return soup.get_text()
+        else:
+            return None
+    except requests.RequestException as e:
+        print(f"Request failed: {e}")
         return None
 
 def summarize_text(text):
@@ -77,7 +81,11 @@ def handle_query(query):
                 summary = summarize_text(scraped_data)
                 print(f"Summary: {summary}")  # Debugging print statement
                 results.append(summary)
+            else:
+                print(f"Failed to scrape data from URL: {url}")  # Debugging print statement
 
+    if not results:
+        print("No valid data found from the URLs.")
     return results
 
 if __name__ == "__main__":

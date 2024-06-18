@@ -94,6 +94,23 @@ def handle_query(query):
     return results
 
 
+def interactive_cli():
+    """
+    Interactive command-line interface for the Auto Search Agent.
+    """
+    print("Welcome to the Auto Search Agent CLI!")
+    print("Type 'exit' to quit the CLI.")
+
+    while True:
+        query = input("Enter your query: ")
+        if query.lower() == 'exit':
+            print("Exiting the CLI. Goodbye!")
+            break
+
+        results = handle_query(query)
+        print("Results:", results)
+
+
 if __name__ == "__main__":
     # Example usage
     query = "What is the capital of France? Also, tell me about the Eiffel Tower."
@@ -116,3 +133,6 @@ if __name__ == "__main__":
     # Example handling of a query
     results = handle_query(query)
     print("Results:", results)
+
+    # Start the interactive CLI
+    interactive_cli()

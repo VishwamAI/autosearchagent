@@ -79,7 +79,13 @@ class TestAgent(unittest.TestCase):
     def test_interactive_cli(self, mock_handle_query):
         mock_handle_query.return_value = ["Paris is the capital of France.", "The Eiffel Tower is a famous landmark in Paris."]
         user_input = "What is the capital of France? Also, tell me about the Eiffel Tower.\nexit\n"
-        expected_output = "Welcome to the Auto Search Agent CLI!\nType 'exit' to quit the CLI.\nEnter your query: Paris is the capital of France.\nThe Eiffel Tower is a famous landmark in Paris.\nEnter your query: Exiting the CLI. Goodbye!\n"
+        expected_output = (
+            "Welcome to the Auto Search Agent CLI!\n"
+            "Type 'exit' to quit the CLI.\n"
+            "Type 'help' for instructions on how to use the CLI.\n"
+            "Enter your query: Results: ['Paris is the capital of France.', 'The Eiffel Tower is a famous landmark in Paris.']\n"
+            "Enter your query: Exiting the CLI. Goodbye!\n"
+        )
 
         with patch('sys.stdin', StringIO(user_input)), patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             interactive_cli()

@@ -100,15 +100,31 @@ def interactive_cli():
     """
     print("Welcome to the Auto Search Agent CLI!")
     print("Type 'exit' to quit the CLI.")
+    print("Type 'help' for instructions on how to use the CLI.")
+
+    history = []
 
     while True:
         query = input("Enter your query: ")
         if query.lower() == 'exit':
             print("Exiting the CLI. Goodbye!")
             break
+        elif query.lower() == 'help':
+            print("Instructions:")
+            print("- Enter your query and press Enter to get a response.")
+            print("- Type 'exit' to quit the CLI.")
+            print("- Type 'history' to view your past queries and responses.")
+            continue
+        elif query.lower() == 'history':
+            print("Query History:")
+            for i, (q, r) in enumerate(history):
+                print(f"{i+1}. Query: {q}")
+                print(f"   Response: {r}")
+            continue
 
         results = handle_query(query)
         print("Results:", results)
+        history.append((query, results))
 
 
 if __name__ == "__main__":

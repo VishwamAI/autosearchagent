@@ -7,6 +7,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 import hashlib
+import time
 
 # Ensure necessary NLTK data packages are downloaded
 nltk.download('punkt')
@@ -52,8 +53,10 @@ def break_down_query(query):
     return sub_queries
 
 
-# In-memory cache for scraped data
+# In-memory cache for scraped data with timestamps
 scrape_cache = {}
+CACHE_EXPIRATION_TIME = 3600  # Cache expiration time in seconds (e.g., 1 hour)
+
 
 def scrape_data(url):
     """
@@ -62,17 +65,19 @@ def scrape_data(url):
     # Generate a hash key for the URL
     url_hash = hashlib.md5(url.encode()).hexdigest()
 
-    # Check if the URL is already in the cache
+    # Check if the URL is already in the cache and if it is still valid
     if url_hash in scrape_cache:
-        return scrape_cache[url_hash]
+        cached_data, timestamp = scrape_cache[url_hash]
+        if time.time() - timestamp < CACHE_EXPIRATION_TIME:
+            return cached_data
 
     try:
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             scraped_text = soup.get_text()
-            # Store the scraped data in the cache
-            scrape_cache[url_hash] = scraped_text
+            # Store the scraped data in the cache with the current timestamp
+            scrape_cache[url_hash] = (scraped_text, time.time())
             return scraped_text
         else:
             return None

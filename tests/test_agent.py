@@ -1,6 +1,7 @@
 import unittest
 from src.agent import parse_query, break_down_query, scrape_data, summarize_text, handle_query
 
+
 class TestAgent(unittest.TestCase):
 
     def test_parse_query(self):
@@ -56,10 +57,11 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(len(results), 0)
 
     def test_handle_query_failed_request(self):
-        query = "https://invalid.url"
+        query = "invalid search query that should fail"
         results = handle_query(query)
         self.assertIsInstance(results, list)
         self.assertEqual(len(results), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

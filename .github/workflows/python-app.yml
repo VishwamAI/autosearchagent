@@ -19,15 +19,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m venv venv
-        source venv/bin/activate
+        . venv/bin/activate
         pip install -r requirements.txt
 
     - name: Lint with flake8
       run: |
-        source venv/bin/activate
+        . venv/bin/activate
         flake8 src tests
 
     - name: Run unit tests
       run: |
-        source venv/bin/activate
+        . venv/bin/activate
         python -m unittest discover -s tests

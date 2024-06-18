@@ -64,7 +64,7 @@ def summarize_text(text):
     """
     parser = PlaintextParser.from_string(text, Tokenizer("english"))
     summarizer = LsaSummarizer()
-    summary = summarizer(parser.document, 2)  # Summarize the text into 2 sentences
+    summary = summarizer(parser.document, 2)
     return " ".join([str(sentence) for sentence in summary])
 
 
@@ -79,15 +79,15 @@ def handle_query(query):
         # Perform a web search for the sub-query
         search_results = search(sub_query, tld="com", num=1, stop=1, pause=2)
         for url in search_results:
-            print(f"Accessing URL: {url}")  # Debugging print statement
+            print(f"Accessing URL: {url}")
             scraped_data = scrape_data(url)
             if scraped_data:
-                print(f"Scraped Data: {scraped_data[:500]}")  # Debugging print statement
+                print(f"Scraped Data: {scraped_data[:500]}")
                 summary = summarize_text(scraped_data)
-                print(f"Summary: {summary}")  # Debugging print statement
+                print(f"Summary: {summary}")
                 results.append(summary)
             else:
-                print(f"Failed to scrape data from URL: {url}")  # Debugging print statement
+                print(f"Failed to scrape data from URL: {url}")
 
     if not results:
         print("No valid data found from the URLs.")
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     # Example URL for scraping
     url = "https://en.wikipedia.org/wiki/Eiffel_Tower"
     scraped_data = scrape_data(url)
-    print("Scraped Data:", scraped_data[:500])  # Print first 500 characters of scraped data
+    print("Scraped Data:", scraped_data[:500])
 
     # Example summarization
     if scraped_data:

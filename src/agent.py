@@ -15,6 +15,7 @@ try:
 except ImportError:
     print("No module named 'google' found")
 
+
 def parse_query(query):
     """
     Parse the input query to understand the intent and extract relevant keywords.
@@ -27,6 +28,7 @@ def parse_query(query):
 
     return tokens
 
+
 def break_down_query(query):
     """
     Break down complex queries into smaller sub-queries.
@@ -38,6 +40,7 @@ def break_down_query(query):
     sub_queries = [sub_query.strip() for sub_query in sub_queries if sub_query.strip()]
 
     return sub_queries
+
 
 def scrape_data(url):
     """
@@ -54,6 +57,7 @@ def scrape_data(url):
         print(f"Request failed: {e}")
         return None
 
+
 def summarize_text(text):
     """
     Summarize the given text using Sumy's LsaSummarizer.
@@ -62,6 +66,7 @@ def summarize_text(text):
     summarizer = LsaSummarizer()
     summary = summarizer(parser.document, 2)  # Summarize the text into 2 sentences
     return " ".join([str(sentence) for sentence in summary])
+
 
 def handle_query(query):
     """
@@ -87,6 +92,7 @@ def handle_query(query):
     if not results:
         print("No valid data found from the URLs.")
     return results
+
 
 if __name__ == "__main__":
     # Example usage

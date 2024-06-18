@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
+import hashlib
 
 # Ensure necessary NLTK data packages are downloaded
 nltk.download('punkt')
@@ -51,15 +52,28 @@ def break_down_query(query):
     return sub_queries
 
 
+# In-memory cache for scraped data
+scrape_cache = {}
+
 def scrape_data(url):
     """
     Scrape data from the given URL using Beautiful Soup.
     """
+    # Generate a hash key for the URL
+    url_hash = hashlib.md5(url.encode()).hexdigest()
+
+    # Check if the URL is already in the cache
+    if url_hash in scrape_cache:
+        return scrape_cache[url_hash]
+
     try:
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
-            return soup.get_text()
+            scraped_text = soup.get_text()
+            # Store the scraped data in the cache
+            scrape_cache[url_hash] = scraped_text
+            return scraped_text
         else:
             return None
     except requests.RequestException as e:

@@ -18,13 +18,17 @@ except ImportError:
 
 def parse_query(query):
     """
-    Parse the input query to understand the intent and extract relevant keywords.
+    Parse the input query to understand the intent and extract relevant
+    keywords.
     """
     # Tokenize the query
     tokens = word_tokenize(query.lower())
 
     # Remove punctuation and non-alphanumeric characters
-    tokens = [re.sub(r'\W+', '', token) for token in tokens if re.sub(r'\W+', '', token)]
+    tokens = [
+        re.sub(r'\W+', '', token) for token in tokens
+        if re.sub(r'\W+', '', token)
+    ]
 
     return tokens
 
@@ -34,10 +38,15 @@ def break_down_query(query):
     Break down complex queries into smaller sub-queries.
     """
     # For simplicity, split the query into sentences
-    sub_queries = re.split(r'[.?!]', query)
+    sub_queries = re.split(
+        r'[.?!]', query
+    )
 
     # Remove empty sub-queries
-    sub_queries = [sub_query.strip() for sub_query in sub_queries if sub_query.strip()]
+    sub_queries = [
+        sub_query.strip() for sub_query in sub_queries
+        if sub_query.strip()
+    ]
 
     return sub_queries
 
@@ -70,7 +79,8 @@ def summarize_text(text):
 
 def handle_query(query):
     """
-    Handle the input query by breaking it down, performing web searches, and summarizing the results.
+    Handle the input query by breaking it down, performing web searches,
+    and summarizing the results.
     """
     sub_queries = break_down_query(query)
     results = []
@@ -129,7 +139,9 @@ def interactive_cli():
 
 if __name__ == "__main__":
     # Example usage
-    query = "What is the capital of France? Also, tell me about the Eiffel Tower."
+    query = (
+        "What is the capital of France? Also, tell me about the Eiffel Tower."
+    )
     parsed_query = parse_query(query)
     sub_queries = break_down_query(query)
 

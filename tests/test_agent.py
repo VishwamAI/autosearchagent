@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch
-from src.agent import parse_query, break_down_query, scrape_data, summarize_text, handle_query
+from src.agent import parse_query, break_down_query, scrape_data, summarize_text, handle_query, interactive_cli
+from io import StringIO
+import sys
 
 
 class TestAgent(unittest.TestCase):
@@ -72,6 +74,16 @@ class TestAgent(unittest.TestCase):
         results = handle_query(query)
         self.assertIsInstance(results, list)
         self.assertEqual(len(results), 0)
+
+    @patch('src.agent.handle_query')
+    def test_interactive_cli(self, mock_handle_query):
+        mock_handle_query.return_value = ["Paris is the capital of France.", "The Eiffel Tower is a famous landmark in Paris."]
+        user_input = "What is the capital of France? Also, tell me about the Eiffel Tower.\nexit\n"
+        expected_output = "Enter your query (type 'exit' to quit): Paris is the capital of France.\nThe Eiffel Tower is a famous landmark in Paris.\nEnter your query (type 'exit' to quit): "
+
+        with patch('sys.stdin', StringIO(user_input)), patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            interactive_cli()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
 
 
 if __name__ == "__main__":

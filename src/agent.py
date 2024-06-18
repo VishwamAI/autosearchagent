@@ -3,6 +3,9 @@ import requests
 import nltk
 from nltk.tokenize import word_tokenize
 from bs4 import BeautifulSoup
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lsa import LsaSummarizer
 
 # Ensure necessary NLTK data packages are downloaded
 nltk.download('punkt')
@@ -42,6 +45,36 @@ def scrape_data(url):
     else:
         return None
 
+def summarize_text(text):
+    """
+    Summarize the given text using Sumy's LsaSummarizer.
+    """
+    parser = PlaintextParser.from_string(text, Tokenizer("english"))
+    summarizer = LsaSummarizer()
+    summary = summarizer(parser.document, 2)  # Summarize the text into 2 sentences
+    return " ".join([str(sentence) for sentence in summary])
+
+def handle_query(query):
+    """
+    Handle the input query by breaking it down, performing web searches, and summarizing the results.
+    """
+    sub_queries = break_down_query(query)
+    results = []
+
+    for sub_query in sub_queries:
+        # For simplicity, let's assume we have a predefined URL for each sub-query
+        # In a real-world scenario, we would perform a web search to find relevant URLs
+        url = "https://en.wikipedia.org/wiki/" + "_".join(sub_query.split())
+        print(f"Accessing URL: {url}")  # Debugging print statement
+        scraped_data = scrape_data(url)
+        if scraped_data:
+            print(f"Scraped Data: {scraped_data[:500]}")  # Debugging print statement
+            summary = summarize_text(scraped_data)
+            print(f"Summary: {summary}")  # Debugging print statement
+            results.append(summary)
+
+    return results
+
 if __name__ == "__main__":
     # Example usage
     query = "What is the capital of France? Also, tell me about the Eiffel Tower."
@@ -55,3 +88,12 @@ if __name__ == "__main__":
     url = "https://en.wikipedia.org/wiki/Eiffel_Tower"
     scraped_data = scrape_data(url)
     print("Scraped Data:", scraped_data[:500])  # Print first 500 characters of scraped data
+
+    # Example summarization
+    if scraped_data:
+        summary = summarize_text(scraped_data)
+        print("Summary:", summary)
+
+    # Example handling of a query
+    results = handle_query(query)
+    print("Results:", results)

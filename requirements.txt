@@ -1,0 +1,7 @@
+beautifulsoup4
+requests
+nltk
+spacy
+sumy
+googlesearch-python
+flake8

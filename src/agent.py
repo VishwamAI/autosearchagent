@@ -10,6 +10,11 @@ from sumy.summarizers.lsa import LsaSummarizer
 # Ensure necessary NLTK data packages are downloaded
 nltk.download('punkt')
 
+try:
+    from googlesearch import search
+except ImportError:
+    print("No module named 'google' found")
+
 def parse_query(query):
     """
     Parse the input query to understand the intent and extract relevant keywords.
@@ -62,16 +67,16 @@ def handle_query(query):
     results = []
 
     for sub_query in sub_queries:
-        # For simplicity, let's assume we have a predefined URL for each sub-query
-        # In a real-world scenario, we would perform a web search to find relevant URLs
-        url = "https://en.wikipedia.org/wiki/" + "_".join(sub_query.split())
-        print(f"Accessing URL: {url}")  # Debugging print statement
-        scraped_data = scrape_data(url)
-        if scraped_data:
-            print(f"Scraped Data: {scraped_data[:500]}")  # Debugging print statement
-            summary = summarize_text(scraped_data)
-            print(f"Summary: {summary}")  # Debugging print statement
-            results.append(summary)
+        # Perform a web search for the sub-query
+        search_results = search(sub_query, tld="com", num=1, stop=1, pause=2)
+        for url in search_results:
+            print(f"Accessing URL: {url}")  # Debugging print statement
+            scraped_data = scrape_data(url)
+            if scraped_data:
+                print(f"Scraped Data: {scraped_data[:500]}")  # Debugging print statement
+                summary = summarize_text(scraped_data)
+                print(f"Summary: {summary}")  # Debugging print statement
+                results.append(summary)
 
     return results
 

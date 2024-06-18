@@ -19,11 +19,22 @@ class TestAgent(unittest.TestCase):
         self.assertIsNotNone(scraped_data)
         self.assertIn("Eiffel Tower", scraped_data)
 
+    def test_scrape_data_invalid_url(self):
+        url = "https://en.wikipedia.org/wiki/Invalid_Page"
+        scraped_data = scrape_data(url)
+        self.assertIsNone(scraped_data)
+
     def test_summarize_text(self):
         text = ("The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France. "
                 "It is named after the engineer Gustave Eiffel, whose company designed and built the tower. "
                 "Locally nicknamed 'La dame de fer' (French for 'Iron Lady'), it was constructed from 1887 to 1889 "
                 "as the centerpiece of the 1889 World's Fair.")
+        summary = summarize_text(text)
+        self.assertIsNotNone(summary)
+        self.assertIn("Eiffel Tower", summary)
+
+    def test_summarize_text_short(self):
+        text = "Eiffel Tower"
         summary = summarize_text(text)
         self.assertIsNotNone(summary)
         self.assertIn("Eiffel Tower", summary)
@@ -37,6 +48,18 @@ class TestAgent(unittest.TestCase):
             self.assertIsNotNone(result)
             self.assertIsInstance(result, str)
             self.assertGreater(len(result), 0)
+
+    def test_handle_query_no_results(self):
+        query = "asdkjfhaskjdfhaskjdfh"
+        results = handle_query(query)
+        self.assertIsInstance(results, list)
+        self.assertEqual(len(results), 0)
+
+    def test_handle_query_failed_request(self):
+        query = "https://invalid.url"
+        results = handle_query(query)
+        self.assertIsInstance(results, list)
+        self.assertEqual(len(results), 0)
 
 if __name__ == "__main__":
     unittest.main()

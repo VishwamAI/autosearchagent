@@ -41,9 +41,9 @@ class TestVishwamModel(unittest.TestCase):
         mock_get.return_value = mock_response
         search_results = execute_search(parsed_query)
         expected_results = ["result1", "result2", "result3"]
-        print(
-            f"Search Results: {search_results}"
-        )  # Added logging for debugging
+        print(f"Mock Get: {mock_get}")
+        print(f"Mock Response: {mock_response.text}")
+        print(f"Search Results: {search_results}")
         self.assertEqual(search_results, expected_results)
 
     def test_process_data(self):

@@ -13,7 +13,10 @@ class TestVishwamModel(unittest.TestCase):
         query = "Test query"
         mock_execute_search.return_value = ["result1", "result2", "result3"]
         response = vishwam_model(query)
-        expected_response = "Here is the summary of the search results: result1 result2 result3"
+        expected_response = (
+            "Here is the summary of the search results: "
+            "result1 result2 result3"
+        )
         self.assertEqual(response, expected_response)
 
     def test_parse_query(self):
@@ -38,6 +41,9 @@ class TestVishwamModel(unittest.TestCase):
         mock_get.return_value = mock_response
         search_results = execute_search(parsed_query)
         expected_results = ["result1", "result2", "result3"]
+        print(f"Mock Get: {mock_get}")
+        print(f"Mock Response: {mock_response.text}")
+        print(f"Search Results: {search_results}")
         self.assertEqual(search_results, expected_results)
 
     def test_process_data(self):
@@ -47,7 +53,9 @@ class TestVishwamModel(unittest.TestCase):
         self.assertEqual(processed_data, expected_data)
 
     def test_summarize_data(self):
-        processed_data = ["result1", "result2", "result3", "result4", "result5", "result6"]
+        processed_data = [
+            "result1", "result2", "result3", "result4", "result5", "result6"
+        ]
         summary = summarize_data(processed_data)
         expected_summary = "result1 result2 result3 result4 result5"
         self.assertEqual(summary, expected_summary)
@@ -55,7 +63,10 @@ class TestVishwamModel(unittest.TestCase):
     def test_generate_response(self):
         summary = "result1 result2 result3 result4 result5"
         response = generate_response(summary)
-        expected_response = "Here is the summary of the search results: result1 result2 result3 result4 result5"
+        expected_response = (
+            "Here is the summary of the search results: "
+            "result1 result2 result3 result4 result5"
+        )
         self.assertEqual(response, expected_response)
 
 

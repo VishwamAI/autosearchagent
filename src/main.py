@@ -66,7 +66,7 @@ def execute_search(parsed_query):
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
         print(f"Response Text: {response.text}")  # Added logging
-        for g in soup.find_all('h3'):
+        for g in soup.find_all('div', class_='BNeawe vvjwJb AP7Wnd'):
             text = g.get_text()
             print(f"Found Text: {text}")  # Added logging
             if "Sponsored" not in text and "More results" not in text:

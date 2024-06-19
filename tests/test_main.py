@@ -26,19 +26,22 @@ class TestVishwamModel(unittest.TestCase):
             self.assertIsInstance(result, str)
 
     def test_process_data(self):
-        search_results = ["result1", "result2", "result3"]
+        search_results = ["  result1  ", "result2\n", "\tresult3"]
         processed_data = process_data(search_results)
-        self.assertEqual(processed_data, search_results)
+        expected_data = ["result1", "result2", "result3"]
+        self.assertEqual(processed_data, expected_data)
 
     def test_summarize_data(self):
-        processed_data = ["result1", "result2", "result3"]
+        processed_data = ["result1", "result2", "result3", "result4", "result5", "result6"]
         summary = summarize_data(processed_data)
-        self.assertEqual(summary, "Summary of the data")
+        expected_summary = "result1 result2 result3 result4 result5"
+        self.assertEqual(summary, expected_summary)
 
     def test_generate_response(self):
-        summary = "Summary of the data"
+        summary = "result1 result2 result3 result4 result5"
         response = generate_response(summary)
-        self.assertEqual(response, summary)
+        expected_response = "Here is the summary of the search results: result1 result2 result3 result4 result5"
+        self.assertEqual(response, expected_response)
 
 
 if __name__ == '__main__':

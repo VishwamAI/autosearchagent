@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 # Load the spaCy model for NLP tasks
 nlp = spacy.load("en_core_web_sm")
 
-# Placeholder function for the Vishwam model
 def vishwam_model(query):
     """
     This function serves as a placeholder for the Vishwam model.

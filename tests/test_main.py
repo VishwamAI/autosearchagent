@@ -1,5 +1,9 @@
 import unittest
-from src.main import vishwam_model, parse_query, execute_search, process_data, summarize_data, generate_response
+from src.main import (
+    vishwam_model, parse_query, execute_search,
+    process_data, summarize_data, generate_response
+)
+
 
 class TestVishwamModel(unittest.TestCase):
 
@@ -32,6 +36,7 @@ class TestVishwamModel(unittest.TestCase):
         summary = "Summary of the data"
         response = generate_response(summary)
         self.assertEqual(response, summary)
+
 
 if __name__ == '__main__':
     unittest.main()

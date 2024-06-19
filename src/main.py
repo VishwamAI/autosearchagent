@@ -1,5 +1,6 @@
 import click
 
+
 # Placeholder function for the Vishwam model
 def vishwam_model(query):
     """
@@ -23,12 +24,14 @@ def vishwam_model(query):
 
     return response
 
+
 def parse_query(query):
     """
     Parse the user's query to determine intent and relevant keywords.
     """
     # Placeholder logic for query parsing
     return query
+
 
 def execute_search(parsed_query):
     """
@@ -37,12 +40,14 @@ def execute_search(parsed_query):
     # Placeholder logic for search execution
     return ["result1", "result2", "result3"]
 
+
 def process_data(search_results):
     """
     Process the search results to extract useful information.
     """
     # Placeholder logic for data processing
     return search_results
+
 
 def summarize_data(processed_data):
     """
@@ -51,12 +56,14 @@ def summarize_data(processed_data):
     # Placeholder logic for summarization
     return "Summary of the data"
 
+
 def generate_response(summary):
     """
     Generate the final response to be returned to the user.
     """
     # Placeholder logic for response generation
     return summary
+
 
 @click.command()
 @click.argument('query')
@@ -66,6 +73,7 @@ def main(query):
     """
     result = vishwam_model(query)
     click.echo(result)
+
 
 if __name__ == '__main__':
     main()

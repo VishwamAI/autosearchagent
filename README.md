@@ -1,5 +1,5 @@
 # autosearchagent
-
+[![Python application](https://github.com/VishwamAI/autosearchagent/actions/workflows/python-app.yml/badge.svg)](https://github.com/VishwamAI/autosearchagent/actions/workflows/python-app.yml)
 ## Overview
 The autosearchagent is an advanced search agent designed to perform web scraping, natural language processing (NLP), and summarization tasks. It is built without using any external APIs and leverages libraries such as Beautiful Soup for web scraping and spaCy for NLP and summarization.
 

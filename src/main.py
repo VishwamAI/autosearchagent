@@ -15,18 +15,23 @@ def vishwam_model(query):
     """
     # Step 1: Query parsing and understanding
     parsed_query = parse_query(query)
+    print(f"Parsed Query: {parsed_query}")
 
     # Step 2: Search execution
     search_results = execute_search(parsed_query)
+    print(f"Search Results: {search_results}")
 
     # Step 3: Data processing
     processed_data = process_data(search_results)
+    print(f"Processed Data: {processed_data}")
 
     # Step 4: Summarization
     summary = summarize_data(processed_data)
+    print(f"Summary: {summary}")
 
     # Step 5: Response generation
     response = generate_response(summary)
+    print(f"Response: {response}")
 
     return response
 
@@ -52,8 +57,10 @@ def execute_search(parsed_query):
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
-        for g in soup.find_all('div', class_='BNeawe vvjwJb AP7Wnd'):
-            search_results.append(g.get_text())
+        for g in soup.find_all('h3'):
+            text = g.get_text()
+            if "Sponsored" not in text and "More results" not in text:
+                search_results.append(text)
     except requests.exceptions.RequestException as e:
         print(f"Error during search execution: {e}")
     return search_results

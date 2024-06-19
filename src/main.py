@@ -1,12 +1,12 @@
 import click
 import re
-from collections import Counter
 import spacy
 import requests
 from bs4 import BeautifulSoup
 
 # Load the spaCy model for NLP tasks
 nlp = spacy.load("en_core_web_sm")
+
 
 def vishwam_model(query):
     """
@@ -35,6 +35,7 @@ def vishwam_model(query):
 
     return response
 
+
 def parse_query(query):
     """
     Parse the user's query to determine intent and relevant keywords.
@@ -43,6 +44,7 @@ def parse_query(query):
     doc = nlp(query)
     keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
     return " ".join(keywords)
+
 
 def execute_search(parsed_query):
     """
@@ -65,6 +67,7 @@ def execute_search(parsed_query):
         print(f"Error during search execution: {e}")
     return search_results
 
+
 def process_data(search_results):
     """
     Process the search results to extract useful information.
@@ -77,6 +80,7 @@ def process_data(search_results):
             processed_data.append(cleaned_result)
     return processed_data
 
+
 def summarize_data(processed_data):
     """
     Summarize the processed data into a concise format.
@@ -85,12 +89,14 @@ def summarize_data(processed_data):
     summary = ' '.join(processed_data[:5])  # Take the first 5 results for the summary
     return summary
 
+
 def generate_response(summary):
     """
     Generate the final response to be returned to the user.
     """
     response = f"Here is the summary of the search results: {summary}"
     return response
+
 
 @click.command()
 @click.argument('query')
@@ -100,6 +106,7 @@ def main(query):
     """
     result = vishwam_model(query)
     click.echo(result)
+
 
 if __name__ == '__main__':
     main()

@@ -71,6 +71,8 @@ def execute_search(parsed_query):
                 search_results.append(text)
     except requests.exceptions.RequestException as e:
         print(f"Error during search execution: {e}")
+    except Exception as e:
+        print(f"Unexpected error during search execution: {e}")
     return search_results
 
 

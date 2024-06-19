@@ -4,6 +4,7 @@ import cProfile
 import pstats
 from main import vishwam_model
 
+
 @click.command()
 @click.argument('query')
 def benchmark(query):
@@ -27,6 +28,7 @@ def benchmark(query):
     stats = pstats.Stats(profiler)
     stats.sort_stats(pstats.SortKey.TIME)
     stats.print_stats()
+
 
 if __name__ == '__main__':
     benchmark()

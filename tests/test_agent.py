@@ -68,8 +68,10 @@ class TestAgent(unittest.TestCase):
         self.assertIsNotNone(summary)
         self.assertIn("Eiffel Tower", summary)
 
+    @patch('src.agent.search')
     @patch('src.agent.scrape_data')
-    def test_handle_query(self, mock_scrape_data):
+    def test_handle_query(self, mock_scrape_data, mock_search):
+        mock_search.return_value = ["https://en.wikipedia.org/wiki/Paris"]
         mock_scrape_data.return_value = (
             "Paris is the capital of France. The Eiffel Tower is a famous "
             "landmark in Paris."
@@ -86,16 +88,20 @@ class TestAgent(unittest.TestCase):
             self.assertIsInstance(result, str)
             self.assertGreater(len(result), 0)
 
+    @patch('src.agent.search')
     @patch('src.agent.scrape_data')
-    def test_handle_query_no_results(self, mock_scrape_data):
+    def test_handle_query_no_results(self, mock_scrape_data, mock_search):
+        mock_search.return_value = []
         mock_scrape_data.return_value = None
         query = "asdkjfhaskjdfhaskjdfh"
         results = handle_query(query)
         self.assertIsInstance(results, list)
         self.assertEqual(len(results), 0)
 
+    @patch('src.agent.search')
     @patch('src.agent.scrape_data')
-    def test_handle_query_failed_request(self, mock_scrape_data):
+    def test_handle_query_failed_request(self, mock_scrape_data, mock_search):
+        mock_search.return_value = []
         mock_scrape_data.return_value = None
         query = "invalid search query that should fail"
         results = handle_query(query)

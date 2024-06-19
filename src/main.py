@@ -65,14 +65,17 @@ def execute_search(parsed_query):
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
+        print(f"Response Text: {response.text}")  # Added logging
         for g in soup.find_all('h3'):
             text = g.get_text()
+            print(f"Found Text: {text}")  # Added logging
             if "Sponsored" not in text and "More results" not in text:
                 search_results.append(text)
     except requests.exceptions.RequestException as e:
         print(f"Error during search execution: {e}")
     except Exception as e:
         print(f"Unexpected error during search execution: {e}")
+    print(f"Final Search Results: {search_results}")  # Added logging
     return search_results
 
 

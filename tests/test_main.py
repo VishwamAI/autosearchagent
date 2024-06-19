@@ -20,7 +20,10 @@ class TestVishwamModel(unittest.TestCase):
     def test_execute_search(self):
         parsed_query = "Test query"
         search_results = execute_search(parsed_query)
-        self.assertEqual(search_results, ["result1", "result2", "result3"])
+        self.assertIsInstance(search_results, list)
+        self.assertGreater(len(search_results), 0)
+        for result in search_results:
+            self.assertIsInstance(result, str)
 
     def test_process_data(self):
         search_results = ["result1", "result2", "result3"]

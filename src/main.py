@@ -42,7 +42,9 @@ def parse_query(query):
     """
     # Use spaCy to parse the query and extract keywords
     doc = nlp(query)
-    keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
+    keywords = [
+        token.text for token in doc if token.is_alpha and not token.is_stop
+    ]
     return " ".join(keywords)
 
 
@@ -52,7 +54,11 @@ def execute_search(parsed_query):
     """
     search_results = []
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/91.0.4472.124 Safari/537.36"
+        )
     }
     url = f"https://www.google.com/search?q={parsed_query}"
     try:
@@ -86,7 +92,9 @@ def summarize_data(processed_data):
     Summarize the processed data into a concise format.
     """
     # Example summarization: join the processed data into a single summary
-    summary = ' '.join(processed_data[:5])  # Take the first 5 results for the summary
+    summary = (
+        ' '.join(processed_data[:5])
+    )  # Take the first 5 results for the summary
     return summary
 
 
